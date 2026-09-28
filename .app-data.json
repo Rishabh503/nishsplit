@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "name": "Rishabh",
+      "email": "rishabhtripathi2022@gmail.com",
+      "passwordHash": "1234567890",
+      "avatar": "🧑🏻‍💻",
+      "isEmailVerified": true,
+      "verificationOtp": null,
+      "createdAt": "2026-09-28T15:59:45.781Z",
+      "lastLoginAt": "2026-09-28T16:19:06.888Z"
+    },
+    {
+      "id": "user2",
+      "name": "Niyati",
+      "email": "chughniyati@gmail.com",
+      "passwordHash": "12345",
+      "avatar": "👩🏻‍💼",
+      "isEmailVerified": true,
+      "verificationOtp": null,
+      "createdAt": "2026-09-28T15:59:45.781Z",
+      "lastLoginAt": "2026-09-28T16:02:08.851Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "nst_1790611330697_17owhc5hr8a_9s1b94nre7",
+      "userId": "user2",
+      "expiresAt": "2026-10-28T16:02:10.697Z"
+    },
+    {
+      "token": "nst_1790612348639_82yw5ncl9ip_v531e921v8",
+      "userId": "user1",
+      "expiresAt": "2026-10-28T16:19:08.639Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "exp_1790611285205_2eq2kk",
+      "title": "food at rohini west",
+      "amount": 350,
+      "currency": "INR",
+      "category": "Food & Dining",
+      "date": "2026-09-28",
+      "paidBy": "user1",
+      "splitType": "EQUAL_SPLIT",
+      "user1Amount": 175,
+      "user2Amount": 175,
+      "notes": "",
+      "createdAt": "2026-09-28T16:01:25.205Z"
+    },
+    {
+      "id": "exp_1",
+      "title": "Dinner at Little Italy",
+      "amount": 1450,
+      "currency": "INR",
+      "category": "Food & Dining",
+      "date": "2026-09-26",
+      "paidBy": "user1",
+      "splitType": "EQUAL_SPLIT",
+      "user1Amount": 725,
+      "user2Amount": 725,
+      "notes": "Split 50/50 for dinner & dessert",
+      "createdAt": "2026-09-26T15:00:00.000Z"
+    },
+    {
+      "id": "exp_2",
+      "title": "Grocery Mart Shopping",
+      "amount": 880,
+      "currency": "INR",
+      "category": "Groceries",
+      "date": "2026-09-24",
+      "paidBy": "user2",
+      "splitType": "EQUAL_SPLIT",
+      "user1Amount": 440,
+      "user2Amount": 440,
+      "notes": "Snacks, milk, vegetables",
+      "createdAt": "2026-09-24T15:00:00.000Z"
+    },
+    {
+      "id": "exp_3",
+      "title": "Movie Tickets & Popcorn",
+      "amount": 600,
+      "currency": "INR",
+      "category": "Entertainment",
+      "date": "2026-09-22",
+      "paidBy": "user1",
+      "splitType": "I_PAID_FOR_HER",
+      "user1Amount": 0,
+      "user2Amount": 600,
+      "notes": "Rishabh paid for Niyati's ticket & combo",
+      "createdAt": "2026-09-22T15:00:00.000Z"
+    },
+    {
+      "id": "exp_4",
+      "title": "Uber Ride to Airport",
+      "amount": 520,
+      "currency": "INR",
+      "category": "Travel & Cab",
+      "date": "2026-09-20",
+      "paidBy": "user2",
+      "splitType": "SHE_PAID_FOR_ME",
+      "user1Amount": 520,
+      "user2Amount": 0,
+      "notes": "Niyati booked Uber cab for Rishabh",
+      "createdAt": "2026-09-20T15:00:00.000Z"
+    }
+  ],
+  "settlements": [],
+  "settings": {
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "neonDbConnected": true,
+    "neonDbUrl": ""
+  }
+}
