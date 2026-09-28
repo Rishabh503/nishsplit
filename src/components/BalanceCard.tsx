@@ -66,12 +66,16 @@ export const BalanceCard: React.FC<BalanceCardProps> = ({
       {/* Net Balance Status */}
       <div className="p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 mb-5">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
-            {isSettled
-              ? "Status"
-              : isOwed
-              ? `${partnerName} owes you`
-              : `You owe ${partnerName}`}
+          <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>{isSettled ? "🐾 Status" : isOwed ? "🐼 Bubu Status" : "🐻 Dudu Status"}</span>
+            <span className="text-neutral-300 dark:text-neutral-700">•</span>
+            <span>
+              {isSettled
+                ? "All Settled"
+                : isOwed
+                ? `${partnerName} owes you`
+                : `You owe ${partnerName}`}
+            </span>
           </span>
           <span
             className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border ${
@@ -95,7 +99,7 @@ export const BalanceCard: React.FC<BalanceCardProps> = ({
             ) : (
               <>
                 <ArrowUpRight className="size-3" />
-                <span>You owe</span>
+                <span>Pay up 🐾</span>
               </>
             )}
           </span>

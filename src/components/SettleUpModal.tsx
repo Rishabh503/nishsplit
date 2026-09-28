@@ -134,6 +134,26 @@ export const SettleUpModal: React.FC<SettleUpModalProps> = ({
             </div>
           )}
 
+          {/* Bubu Dudu Settlement Mascot Header */}
+          <div className="p-3 rounded-xl border border-pink-200/70 dark:border-pink-900/40 bg-pink-50/50 dark:bg-pink-950/20 flex items-center gap-3">
+            <div className="size-12 rounded-lg bg-white dark:bg-neutral-900 border border-pink-200 dark:border-pink-900/60 p-1 shrink-0 flex items-center justify-center shadow-2xs">
+              <img
+                src="/stickers/bubu_hug.gif"
+                alt="Bubu Dudu settle"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <span className="text-xs font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-1">
+                <span>Peace Treaty & Settlement</span>
+                <span>🤝</span>
+              </span>
+              <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                Clearing dues restores 100% Bubu & Dudu peace!
+              </p>
+            </div>
+          </div>
+
           <div className="p-3 bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded-xl flex items-center justify-around text-center">
             <div className="flex flex-col items-center">
               <span className="text-2xl">{payerAvatar}</span>

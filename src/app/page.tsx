@@ -19,6 +19,7 @@ import { SettleUpModal } from "@/components/SettleUpModal";
 import { AnalyticsView } from "@/components/AnalyticsView";
 import { SettingsView } from "@/components/SettingsView";
 import { AuthScreen } from "@/components/AuthScreen";
+import { BubuDuduReactionCard } from "@/components/BubuDuduReactionCard";
 import { Loader2 } from "lucide-react";
 
 export default function Home() {
@@ -340,6 +341,15 @@ export default function Home() {
                 setEditingExpense(null);
                 setIsAddModalOpen(true);
               }}
+            />
+
+            {/* Bubu & Dudu Live Mood & Debt Demands */}
+            <BubuDuduReactionCard
+              settings={settings}
+              user={currentUser}
+              partner={partner}
+              balance={balance}
+              onSettleUp={() => setIsSettleModalOpen(true)}
             />
 
             {/* Split Presets Quick Bar */}

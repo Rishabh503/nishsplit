@@ -63,7 +63,51 @@ export async function sendOtpEmail({
     </html>
   `;
 
-  // 1. Check for Resend API Key (https://resend.com)
+  // 1. Check for Gmail SMTP / Standard SMTP first (Sends to ANY recipient)
+  const user = process.env.SMTP_USER || process.env.EMAIL_SERVER_USER;
+  const pass = (process.env.SMTP_PASS || process.env.SMTP_PASSWORD || process.env.EMAIL_SERVER_PASSWORD)?.replace(/\s+/g, "");
+  const from = process.env.SMTP_FROM || `"NishSplit" <${user || "no-reply@nishsplit.app"}>`;
+
+  if (user && pass) {
+    try {
+      const isGmail = user.toLowerCase().includes("@gmail.com");
+      const transporter = nodemailer.createTransport(
+        isGmail
+          ? {
+              service: "gmail",
+              auth: {
+                user,
+                pass,
+              },
+            }
+          : {
+              host: process.env.SMTP_HOST || "smtp.gmail.com",
+              port: Number(process.env.SMTP_PORT) || 587,
+              secure: Number(process.env.SMTP_PORT) === 465,
+              auth: {
+                user,
+                pass,
+              },
+            }
+      );
+
+      await transporter.sendMail({
+        from,
+        to,
+        subject: `[NishSplit] ${subject} - Code: ${otp}`,
+        text: `Hi ${userName},\n\nYour 6-digit NishSplit code is: ${otp}\n\nIt expires in 15 minutes.`,
+        html: htmlContent,
+      });
+
+      console.log(`[SMTP EMAIL DELIVERED] Successfully sent email to ${to} via Gmail SMTP`);
+      return { success: true, sentViaSmtp: true };
+    } catch (err: any) {
+      console.error("[SMTP ERROR] Failed to send email via SMTP:", err);
+      return { success: false, sentViaSmtp: false, error: err.message };
+    }
+  }
+
+  // 2. Resend API Key fallback
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey) {
     try {
@@ -95,42 +139,7 @@ export async function sendOtpEmail({
     }
   }
 
-  // 2. Check for Standard SMTP / Gmail SMTP
-  const host = process.env.SMTP_HOST || (process.env.SMTP_USER?.includes("gmail.com") ? "smtp.gmail.com" : undefined);
-  const port = Number(process.env.SMTP_PORT) || 587;
-  const user = process.env.SMTP_USER || process.env.EMAIL_SERVER_USER;
-  const pass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD || process.env.EMAIL_SERVER_PASSWORD;
-  const from = process.env.SMTP_FROM || `"NishSplit" <${user || "no-reply@nishsplit.app"}>`;
-
-  if (user && pass) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host: host || "smtp.gmail.com",
-        port,
-        secure: port === 465,
-        auth: {
-          user,
-          pass,
-        },
-      });
-
-      await transporter.sendMail({
-        from,
-        to,
-        subject: `[NishSplit] ${subject} - Code: ${otp}`,
-        text: `Hi ${userName},\n\nYour 6-digit NishSplit code is: ${otp}\n\nIt expires in 15 minutes.`,
-        html: htmlContent,
-      });
-
-      console.log(`[SMTP EMAIL DELIVERED] Successfully sent email to ${to} via SMTP`);
-      return { success: true, sentViaSmtp: true };
-    } catch (err: any) {
-      console.error("[SMTP ERROR] Failed to send email via SMTP:", err);
-      return { success: false, sentViaSmtp: false, error: err.message };
-    }
-  }
-
-  // Fallback: OTP logged & displayed on screen
+  // Fallback notice
   console.log(`[EMAIL NOTICE] No SMTP/Resend configured. Generated OTP for ${to}: ${otp}`);
   return { success: true, sentViaSmtp: false };
 }

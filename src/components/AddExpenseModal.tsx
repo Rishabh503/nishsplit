@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Expense, SplitType, ExpenseCategory, UserRole, AppSettings, UserPublicProfile } from "@/types";
 import { CATEGORIES, formatCurrency } from "@/lib/utils";
+import { BUBU_DUDU_SPLIT_STICKERS } from "@/lib/bubuDuduData";
 import {
   X,
   Scale,
@@ -11,6 +12,7 @@ import {
   Sliders,
   Check,
   Receipt,
+  Sparkles,
 } from "lucide-react";
 
 interface AddExpenseModalProps {
@@ -375,6 +377,33 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 </div>
               </button>
             </div>
+
+            {/* Bubu & Dudu Animated Split Reaction Sticker */}
+            {BUBU_DUDU_SPLIT_STICKERS[splitType] && (
+              <div className="mt-2.5 p-2.5 rounded-xl border border-pink-200/70 dark:border-pink-900/40 bg-pink-50/50 dark:bg-pink-950/20 flex items-center gap-3 animate-in fade-in duration-200">
+                <div className="size-12 rounded-lg bg-white dark:bg-neutral-900 border border-pink-200 dark:border-pink-900/60 p-1 shrink-0 flex items-center justify-center shadow-2xs overflow-hidden">
+                  <img
+                    src={BUBU_DUDU_SPLIT_STICKERS[splitType].gifUrl}
+                    alt="Bubu Dudu split mode"
+                    className="w-full h-full object-contain select-none"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = "none";
+                    }}
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-neutral-900 dark:text-neutral-100">
+                      {BUBU_DUDU_SPLIT_STICKERS[splitType].title}
+                    </span>
+                    <Sparkles className="size-3 text-pink-500" />
+                  </div>
+                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400 truncate">
+                    {BUBU_DUDU_SPLIT_STICKERS[splitType].subtitle}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Custom Split Inputs */}

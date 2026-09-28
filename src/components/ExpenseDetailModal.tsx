@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Expense, UserPublicProfile, AppSettings } from "@/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { BUBU_DUDU_SPLIT_STICKERS } from "@/lib/bubuDuduData";
 import { X, Trash2, Edit2, FileText, AlertTriangle } from "lucide-react";
 
 interface ExpenseDetailModalProps {
@@ -111,12 +112,17 @@ export const ExpenseDetailModal: React.FC<ExpenseDetailModalProps> = ({
             </div>
 
             <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
-              <span>Rule:</span>
-              <span className="font-semibold text-neutral-900 dark:text-neutral-100">
-                {expense.splitType === "EQUAL_SPLIT" && "50/50 Equal Split"}
-                {expense.splitType === "I_PAID_FOR_HER" && "100% on Partner"}
-                {expense.splitType === "SHE_PAID_FOR_ME" && "100% on User"}
-                {expense.splitType === "CUSTOM_SPLIT" && "Custom Split"}
+              <span className="flex items-center gap-1">
+                <span>🐾 Rule:</span>
+              </span>
+              <span className="font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-1">
+                <span>{BUBU_DUDU_SPLIT_STICKERS[expense.splitType]?.emoji}</span>
+                <span>
+                  {expense.splitType === "EQUAL_SPLIT" && "50/50 Equal Split"}
+                  {expense.splitType === "I_PAID_FOR_HER" && "100% on Partner"}
+                  {expense.splitType === "SHE_PAID_FOR_ME" && "100% on User"}
+                  {expense.splitType === "CUSTOM_SPLIT" && "Custom Split"}
+                </span>
               </span>
             </div>
           </div>

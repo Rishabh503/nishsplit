@@ -176,24 +176,32 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({
               ))}
             </div>
           ) : (
-            <div className="p-8 text-center bg-neutral-50 dark:bg-neutral-900/40 border border-dashed border-neutral-200 dark:border-neutral-800 rounded-2xl space-y-3">
-              <div className="size-10 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 flex items-center justify-center mx-auto border border-neutral-200 dark:border-neutral-700">
-                <Receipt className="size-5" />
+            <div className="p-7 text-center bg-neutral-50/80 dark:bg-neutral-900/40 border border-dashed border-neutral-200 dark:border-neutral-800 rounded-2xl space-y-3">
+              <div className="size-20 rounded-2xl bg-white dark:bg-neutral-800 border border-pink-200 dark:border-pink-900/60 p-2 mx-auto flex items-center justify-center shadow-xs">
+                <img
+                  src="/stickers/bubu_sleep.gif"
+                  alt="Bubu Dudu waiting"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">No expenses found</p>
+                <p className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
+                  {searchQuery || selectedSplitType !== "ALL"
+                    ? "No matching expenses"
+                    : "Bubu & Dudu are waiting for treats!"}
+                </p>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
                   {searchQuery || selectedSplitType !== "ALL"
-                    ? "Try adjusting your search query or filters"
-                    : "Add your first expense to begin"}
+                    ? "Try adjusting your search keywords or active filters"
+                    : "No expenses recorded yet. Tap below to add your first bill!"}
                 </p>
               </div>
               <button
                 onClick={onOpenAddExpense}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-black text-white dark:bg-white dark:text-black text-xs font-semibold shadow-xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-black text-white dark:bg-white dark:text-black text-xs font-semibold shadow-xs hover:opacity-90 transition active:scale-95 cursor-pointer"
               >
                 <Plus className="size-3.5" />
-                <span>Add Expense</span>
+                <span>Add First Expense</span>
               </button>
             </div>
           )}

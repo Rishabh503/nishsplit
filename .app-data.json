@@ -7,9 +7,10 @@
       "passwordHash": "1234567890",
       "avatar": "🧑🏻‍💻",
       "isEmailVerified": true,
-      "verificationOtp": null,
+      "verificationOtp": "675835",
+      "otpExpiresAt": "2026-09-28T18:30:51.539Z",
       "createdAt": "2026-09-28T15:59:45.781Z",
-      "lastLoginAt": "2026-09-28T16:19:06.888Z"
+      "lastLoginAt": "2026-09-28T18:10:35.327Z"
     },
     {
       "id": "user2",
@@ -18,23 +19,13 @@
       "passwordHash": "12345",
       "avatar": "👩🏻‍💼",
       "isEmailVerified": true,
-      "verificationOtp": null,
+      "verificationOtp": "409619",
+      "otpExpiresAt": "2026-09-28T18:31:54.777Z",
       "createdAt": "2026-09-28T15:59:45.781Z",
       "lastLoginAt": "2026-09-28T16:02:08.851Z"
     }
   ],
-  "sessions": [
-    {
-      "token": "nst_1790611330697_17owhc5hr8a_9s1b94nre7",
-      "userId": "user2",
-      "expiresAt": "2026-10-28T16:02:10.697Z"
-    },
-    {
-      "token": "nst_1790612348639_82yw5ncl9ip_v531e921v8",
-      "userId": "user1",
-      "expiresAt": "2026-10-28T16:19:08.639Z"
-    }
-  ],
+  "sessions": [],
   "expenses": [
     {
       "id": "exp_1790611285205_2eq2kk",
