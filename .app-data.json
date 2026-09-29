@@ -22,10 +22,16 @@
       "verificationOtp": "409619",
       "otpExpiresAt": "2026-09-28T18:31:54.777Z",
       "createdAt": "2026-09-28T15:59:45.781Z",
-      "lastLoginAt": "2026-09-28T16:02:08.851Z"
+      "lastLoginAt": "2026-09-28T18:19:25.921Z"
     }
   ],
-  "sessions": [],
+  "sessions": [
+    {
+      "token": "nst_1790619567760_j0j7dfslxe_i2f450zpiue",
+      "userId": "user2",
+      "expiresAt": "2026-10-28T18:19:27.760Z"
+    }
+  ],
   "expenses": [
     {
       "id": "exp_1790611285205_2eq2kk",
