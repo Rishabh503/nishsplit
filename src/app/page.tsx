@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Expense,
   Settlement,
@@ -20,7 +20,8 @@ import { AnalyticsView } from "@/components/AnalyticsView";
 import { SettingsView } from "@/components/SettingsView";
 import { AuthScreen } from "@/components/AuthScreen";
 import { BubuDuduReactionCard } from "@/components/BubuDuduReactionCard";
-import { Loader2 } from "lucide-react";
+import { PersonalView, PersonalViewHandle } from "@/components/personal/PersonalView";
+import { ChevronRight, Loader2, Wallet } from "lucide-react";
 
 export default function Home() {
   // Auth state
@@ -43,6 +44,9 @@ export default function Home() {
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const [isSettleModalOpen, setIsSettleModalOpen] = useState(false);
+
+  // Lets the center + button open the personal add sheet while on the My Spends tab
+  const personalViewRef = useRef<PersonalViewHandle>(null);
 
   // Theme setup
   useEffect(() => {
@@ -343,6 +347,23 @@ export default function Home() {
               }}
             />
 
+            {/* Entry point to the personal tracker */}
+            <button
+              onClick={() => setCurrentTab("personal")}
+              className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/70 backdrop-blur-sm text-left shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 active:scale-[0.99] transition"
+            >
+              <div className="size-10 shrink-0 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-neutral-800 dark:text-neutral-200">
+                <Wallet className="size-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-bold text-neutral-900 dark:text-neutral-100">My Spends</div>
+                <div className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
+                  Track your own cash &amp; UPI expenses and group splits
+                </div>
+              </div>
+              <ChevronRight className="size-4 text-neutral-400 shrink-0" />
+            </button>
+
             {/* Bubu & Dudu Live Mood & Debt Demands */}
             <BubuDuduReactionCard
               settings={settings}
@@ -407,6 +428,10 @@ export default function Home() {
           />
         )}
 
+        {currentTab === "personal" && (
+          <PersonalView ref={personalViewRef} authToken={authToken} user={currentUser} />
+        )}
+
         {currentTab === "settings" && (
           <SettingsView
             settings={settings}
@@ -427,6 +452,10 @@ export default function Home() {
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
         onOpenAddExpense={() => {
+          if (currentTab === "personal") {
+            personalViewRef.current?.openAdd();
+            return;
+          }
           setEditingExpense(null);
           setIsAddModalOpen(true);
         }}

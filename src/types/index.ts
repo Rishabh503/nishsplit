@@ -83,3 +83,35 @@ export interface BalanceSummary {
   totalExpensesCount: number;
   totalSpent: number;
 }
+
+/* Personal (non-shared) expense tracker, one list per user */
+
+export type PaymentMethod = 'cash' | 'upi';
+
+export interface PersonalExpense {
+  id: string;
+  userId: UserRole;
+  title: string;
+  amount: number; // Full bill. For a group split this is the whole group bill.
+  method: PaymentMethod;
+  spentOn: string; // YYYY-MM-DD
+  isSplit: boolean;
+  people: number; // People in the split, including me
+  myShare: number; // What this expense actually cost me
+  paidByMe: boolean; // true: I paid the bill (others owe me). false: someone else paid (I owe my share)
+  settled: boolean; // Split only: I got my money back / I paid my share
+  splitWith: string;
+  note: string;
+  createdAt: string;
+}
+
+export type PersonalExpenseInput = Omit<PersonalExpense, 'id' | 'userId' | 'createdAt'>;
+
+export interface PersonalSummary {
+  totalSpent: number;
+  cashOut: number;
+  upiOut: number;
+  toReceive: number;
+  toPay: number;
+  count: number;
+}
