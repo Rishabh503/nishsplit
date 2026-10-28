@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Home, Plus, BarChart3, Settings, Sun, Moon } from "lucide-react";
+import { Home, Plus, BarChart3, Settings, Sun, Moon, Wallet } from "lucide-react";
 
-export type NavTab = "home" | "analytics" | "settings";
+export type NavTab = "home" | "analytics" | "personal" | "settings";
 
 interface BottomNavProps {
   currentTab: NavTab;
@@ -56,6 +56,19 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           title="Add New Expense"
         >
           <Plus className="size-5 stroke-[2.5]" />
+        </button>
+
+        {/* My Spends (personal tracker) */}
+        <button
+          onClick={() => onSelectTab("personal")}
+          className={`size-10 rounded-full flex items-center justify-center transition-all ${
+            currentTab === "personal"
+              ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+              : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900"
+          }`}
+          title="My Spends"
+        >
+          <Wallet className="size-4" />
         </button>
 
         {/* Settings */}
