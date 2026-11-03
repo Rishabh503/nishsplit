@@ -115,3 +115,27 @@ export interface PersonalSummary {
   toPay: number;
   count: number;
 }
+
+/* Bank statement analyzer, owner only */
+
+export interface StatementTxn {
+  id: string;
+  date: string; // YYYY-MM-DD
+  description: string;
+  amount: number; // Money out (debit)
+  category: ExpenseCategory | null; // null until categorised
+  ignored: boolean; // Own-account transfers and anything else left out of the total
+}
+
+export interface StatementSession {
+  id: string;
+  name: string;
+  fileName: string;
+  days: number;
+  endDate: string; // YYYY-MM-DD, last day of the analysed window
+  txns: StatementTxn[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type StatementSessionInput = Pick<StatementSession, 'name' | 'fileName' | 'days' | 'endDate' | 'txns'>;

@@ -3,7 +3,7 @@
 import React from "react";
 import { Home, Plus, BarChart3, Settings, Sun, Moon, Wallet } from "lucide-react";
 
-export type NavTab = "home" | "analytics" | "personal" | "settings";
+export type NavTab = "home" | "analytics" | "personal" | "statement" | "settings";
 
 interface BottomNavProps {
   currentTab: NavTab;

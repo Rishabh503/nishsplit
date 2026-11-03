@@ -21,7 +21,9 @@ import { SettingsView } from "@/components/SettingsView";
 import { AuthScreen } from "@/components/AuthScreen";
 import { BubuDuduReactionCard } from "@/components/BubuDuduReactionCard";
 import { PersonalView, PersonalViewHandle } from "@/components/personal/PersonalView";
-import { ChevronRight, Loader2, Wallet } from "lucide-react";
+import { StatementView, StatementViewHandle } from "@/components/statement/StatementView";
+import { isStatementOwner } from "@/lib/statement";
+import { ChevronRight, FileSpreadsheet, Loader2, Wallet } from "lucide-react";
 
 export default function Home() {
   // Auth state
@@ -47,6 +49,7 @@ export default function Home() {
 
   // Lets the center + button open the personal add sheet while on the My Spends tab
   const personalViewRef = useRef<PersonalViewHandle>(null);
+  const statementViewRef = useRef<StatementViewHandle>(null);
 
   // Theme setup
   useEffect(() => {
@@ -316,6 +319,7 @@ export default function Home() {
 
   // Calculate balance from active user's perspective
   const balance: BalanceSummary = calculateBalance(expenses, settlements, currentUser.id);
+  const canAnalyseStatements = isStatementOwner(currentUser.email);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-neutral-100 bg-dot-pattern flex flex-col transition-colors">
@@ -363,6 +367,25 @@ export default function Home() {
               </div>
               <ChevronRight className="size-4 text-neutral-400 shrink-0" />
             </button>
+
+            {/* Entry point to the statement analyzer, only on Rishabh's account */}
+            {canAnalyseStatements && (
+              <button
+                onClick={() => setCurrentTab("statement")}
+                className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/70 backdrop-blur-sm text-left shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 active:scale-[0.99] transition"
+              >
+                <div className="size-10 shrink-0 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-neutral-800 dark:text-neutral-200">
+                  <FileSpreadsheet className="size-4" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-bold text-neutral-900 dark:text-neutral-100">Statement analysis</div>
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
+                    Upload a bank statement and see spend by category
+                  </div>
+                </div>
+                <ChevronRight className="size-4 text-neutral-400 shrink-0" />
+              </button>
+            )}
 
             {/* Bubu & Dudu Live Mood & Debt Demands */}
             <BubuDuduReactionCard
@@ -432,6 +455,10 @@ export default function Home() {
           <PersonalView ref={personalViewRef} authToken={authToken} user={currentUser} />
         )}
 
+        {currentTab === "statement" && canAnalyseStatements && (
+          <StatementView ref={statementViewRef} authToken={authToken} />
+        )}
+
         {currentTab === "settings" && (
           <SettingsView
             settings={settings}
@@ -454,6 +481,10 @@ export default function Home() {
         onOpenAddExpense={() => {
           if (currentTab === "personal") {
             personalViewRef.current?.openAdd();
+            return;
+          }
+          if (currentTab === "statement" && canAnalyseStatements) {
+            statementViewRef.current?.openNew();
             return;
           }
           setEditingExpense(null);
